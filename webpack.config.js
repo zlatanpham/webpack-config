@@ -1,4 +1,6 @@
 const merge = require("webpack-merge");
+const glob = require("glob");
+const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 var SystemBellPlugin = require("system-bell-webpack-plugin");
@@ -7,21 +9,43 @@ const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 const parts = require("./webpack.parts");
 
+const PATHS = {
+  app: path.join(__dirname, "src"),
+  build: path.join(__dirname, "dist")
+};
+
 const commonConfig = merge([
-  { plugins: [new HtmlWebpackPlugin({ title: "Webpack demo" })] }
+  parts.loadJavaScript({ include: PATHS.app, exclude: /node_modules/ }),
+  {
+    plugins: [new HtmlWebpackPlugin({ title: "Webpack demo" })]
+    // entry: { style: glob.sync("./src/**/*.css") }
+  }
 ]);
 
 const productionConfig = merge([
-  parts.extractCSS({
-    use: [
-      "css-loader",
-      {
-        loader: "postcss-loader",
-        options: {
-          plugins: () => [require("autoprefixer"), require("precss")]
+  parts.clean(PATHS.build),
+  parts.minifyJavaScript(),
+  {
+    optimization: {
+      splitChunks: {
+        // chunks: "initial"
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendor",
+            chunks: "initial"
+          }
         }
       }
-    ]
+    }
+  },
+  parts.attachRevision(),
+  parts.generateSourceMaps({ type: "source-map" }),
+  parts.extractCSS({
+    use: ["css-loader", parts.autoprefix()]
+  }),
+  parts.purifyCSS({
+    paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true })
   })
 ]);
 
