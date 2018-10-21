@@ -3,7 +3,7 @@ const PurifyCSSPlugin = require("purifycss-webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const webpack = require("webpack");
-const UglifyWebpackPlugin = require("uglifyjs-webpack-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 
 exports.devServer = ({ host, port } = {}) => ({
   devServer: {
@@ -93,9 +93,8 @@ exports.attachRevision = () => ({
 exports.minifyJavaScript = () => ({
   optimization: {
     minimizer: [
-      new UglifyWebpackPlugin({
-        sourceMap: true,
-        uglifyOptions: { ecma: 8 }
+      new TerserWebpackPlugin({
+        sourceMap: true
       })
     ]
   }
