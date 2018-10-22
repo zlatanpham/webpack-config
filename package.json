@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --env development",
-    "build": "webpack --env production"
+    "build": "webpack --env production",
+    "analyze": "webpack --profile  --env production --json > stats.json"
   },
   "devDependencies": {
     "autoprefixer": "^9.1.5",
@@ -33,6 +34,7 @@
     "system-bell-webpack-plugin": "^1.0.0",
     "terser-webpack-plugin": "^1.1.0",
     "webpack": "^4.19.0",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8",
     "webpack-merge": "^4.1.4"

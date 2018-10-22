@@ -23,6 +23,19 @@ const commonConfig = merge([
 ]);
 
 const productionConfig = merge([
+  {
+    output: {
+      chunkFilename: "[name].[chunkhash:4].js",
+      filename: "[name].[chunkhash:4].js"
+    }
+  },
+  {
+    performance: {
+      hints: "warning", // "error" or false are valid too
+      maxEntrypointSize: 50000, // in bytes, default 250k
+      maxAssetSize: 450000 // in bytes
+    }
+  },
   parts.clean(PATHS.build),
   parts.minifyJavaScript(),
   {
@@ -36,6 +49,9 @@ const productionConfig = merge([
             chunks: "initial"
           }
         }
+      },
+      runtimeChunk: {
+        name: "manifest"
       }
     }
   },
@@ -46,7 +62,8 @@ const productionConfig = merge([
   }),
   parts.purifyCSS({
     paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true })
-  })
+  }),
+  parts.analyzer()
 ]);
 
 const developmentConfig = merge([

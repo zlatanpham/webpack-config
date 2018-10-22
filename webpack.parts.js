@@ -4,6 +4,8 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const webpack = require("webpack");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 exports.devServer = ({ host, port } = {}) => ({
   devServer: {
@@ -39,7 +41,7 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
 
 exports.extractCSS = ({ include, exclude, use = [] }) => {
   const plugin = new MiniCssExtractPlugin({
-    filename: "[name].css"
+    filename: "[name].[contenthash:4].css"
   });
 
   return {
@@ -98,4 +100,8 @@ exports.minifyJavaScript = () => ({
       })
     ]
   }
+});
+
+exports.analyzer = () => ({
+  plugins: [new BundleAnalyzerPlugin()]
 });
