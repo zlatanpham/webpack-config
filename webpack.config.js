@@ -1,13 +1,19 @@
 const merge = require("webpack-merge");
-
+const PATHS = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
-
 const parts = require("./webpack.parts");
 
 const commonConfig = merge([
-  { plugins: [new HtmlWebpackPlugin({ title: "Webpack demo" })] },
-  parts.loadJavascript({ include: PATHS.app })
+  {
+    plugins: [
+      new HtmlWebpackPlugin({
+        title: "Webpack demo",
+        template: "src/index.html"
+      })
+    ]
+  },
+  parts.loadJavascript({ include: PATHS.app, exclude: /node_modules/ })
 ]);
 
 const productionConfig = merge([
