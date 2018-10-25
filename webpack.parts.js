@@ -14,7 +14,7 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         include,
         exclude,
         use: [
@@ -24,6 +24,17 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
             loader: "postcss-loader",
             options: {
               plugins: () => [require("autoprefixer")]
+            }
+          },
+          "sass-loader",
+          {
+            loader: "sass-resources-loader",
+            options: {
+              resources: [
+                "./src/style/resources/variables.scss",
+                "./src/style/resources/classes.scss",
+                "./src/style/resources/mixins.scss"
+              ]
             }
           }
         ]
