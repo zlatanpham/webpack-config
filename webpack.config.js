@@ -4,14 +4,19 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const parts = require("./webpack.parts");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const commonConfig = merge([
   {
     plugins: [
+      new CaseSensitivePathsPlugin(),
       new CleanWebpackPlugin(["dist", "build"]),
       new HtmlWebpackPlugin({
-        title: "Webpack demo"
-        // template: "./src/index.html"
+        title: "Webpack demo",
+        template: "./src/index.html"
       })
     ]
   },
@@ -33,6 +38,10 @@ const developmentConfig = merge([
 ]);
 
 module.exports = mode => {
+  console.log("enviroment");
+  console.log(process.env.PORT);
+  console.log(process.env.TEST);
+
   if (mode === "production") {
     return merge(commonConfig, productionConfig, { mode });
   }
