@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import style from "./style.scss";
-import Me from "@/components/Me";
+import React, { Component } from 'react'
+import './style.scss'
+import Me from '@/components/Me'
 
 class Hello extends Component {
   render() {
@@ -8,8 +8,8 @@ class Hello extends Component {
       <div className="hello">
         <Me />
       </div>
-    );
+    )
   }
 }
 
-export default Hello;
+export default Hello

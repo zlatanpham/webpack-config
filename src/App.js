@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import main from "./style/main.scss";
-import Hello from "@/components/Hello";
+import React, { Component } from 'react'
+import './style/main.scss'
+import Hello from '@/components/Hello'
 
 class App extends Component {
   render() {
-    return <Hello />;
+    return <Hello />
   }
 }
 
-export default App;
+export default App
