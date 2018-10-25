@@ -4,3 +4,14 @@
   background-color: $primary;
   @extend %center;
 }
+
+.me {
+  height: 30px;
+  width: 30px;
+  background-color: $secondary;
+  @extend %center;
+}
+
+.unused {
+  background-color: red;
+}

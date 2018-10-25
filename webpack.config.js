@@ -6,6 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const dotenv = require('dotenv')
 const chalk = require('chalk')
+
 const log = console.log
 
 dotenv.config()
@@ -32,7 +33,26 @@ const commonConfig = merge([
 
 const productionConfig = merge([
   parts.extractCSS({
-    use: ['css-loader'],
+    use: [
+      'css-loader',
+      {
+        loader: 'postcss-loader',
+        options: {
+          plugins: () => [require('autoprefixer')],
+        },
+      },
+      'sass-loader',
+      {
+        loader: 'sass-resources-loader',
+        options: {
+          resources: [
+            './src/style/resources/variables.scss',
+            './src/style/resources/classes.scss',
+            './src/style/resources/mixins.scss',
+          ],
+        },
+      },
+    ],
   }),
   {
     optimization: {
