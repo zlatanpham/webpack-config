@@ -52,7 +52,7 @@ exports.extractCSS = ({ include, exclude, use = [] }) => {
     module: {
       rules: [
         {
-          test: /\.css$/,
+          test: /\.scss$/,
           include,
           exclude,
           use: [MiniCssExtractPlugin.loader].concat(use)

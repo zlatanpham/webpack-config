@@ -3,13 +3,15 @@ const PATHS = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const parts = require("./webpack.parts");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 const commonConfig = merge([
   {
     plugins: [
+      new CleanWebpackPlugin(["dist", "build"]),
       new HtmlWebpackPlugin({
-        title: "Webpack demo",
-        template: "src/index.html"
+        title: "Webpack demo"
+        // template: "./src/index.html"
       })
     ]
   },
