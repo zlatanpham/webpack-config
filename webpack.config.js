@@ -33,7 +33,14 @@ const commonConfig = merge([
 const productionConfig = merge([
   parts.extractCSS({
     use: ["css-loader"]
-  })
+  }),
+  {
+    optimization: {
+      splitChunks: {
+        chunks: "initial"
+      }
+    }
+  }
 ]);
 
 const developmentConfig = merge([
