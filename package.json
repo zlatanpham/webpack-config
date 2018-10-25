@@ -8,7 +8,8 @@
     "build": "webpack --env production",
     "serve": "webpack-dev-server --env production",
     "lint": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint:fix": "eslint src --fix",
+    "test": "bundlesize"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -17,6 +18,7 @@
     "autoprefixer": "^9.2.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
+    "bundlesize": "^0.17.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.0",
@@ -47,5 +49,15 @@
     "favicons-webpack-plugin": "^0.0.9",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
-  }
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/main.js",
+      "maxSize": "3 kB"
+    },
+    {
+      "path": "./dist/vendors~*.js",
+      "maxSize": "100 kB"
+    }
+  ]
 }
