@@ -11,6 +11,13 @@ dotenv.config();
 
 const commonConfig = merge([
   {
+    resolve: {
+      modules: [PATHS.resolve(__dirname, "./src"), "node_modules"],
+      extensions: [".js", ".jsx", ".json"],
+      alias: {
+        "@": PATHS.resolve(__dirname, "./src")
+      }
+    },
     plugins: [
       new CaseSensitivePathsPlugin(),
       new CleanWebpackPlugin(["dist", "build"]),

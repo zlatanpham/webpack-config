@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import style from "./style.scss";
-import Me from "@/components/Me";
 
 class Hello extends Component {
   render() {
-    return (
-      <div className="hello">
-        <Me />
-      </div>
-    );
+    return <div className="me" />;
   }
 }
 

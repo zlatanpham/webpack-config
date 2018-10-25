@@ -1,0 +1,6 @@
+.me {
+  height: 10px;
+  width: 10px;
+  background-color: $secondary;
+  @extend %center;
+}
