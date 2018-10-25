@@ -70,7 +70,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "lint",
+      "yarn lint",
       "yarn test",
       "git add"
     ]
