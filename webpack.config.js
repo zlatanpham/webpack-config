@@ -1,27 +1,25 @@
-const merge = require("webpack-merge");
+const merge = require('webpack-merge')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
-
-const parts = require("./webpack.parts");
+const parts = require('./webpack.parts')
 
 const commonConfig = merge([
-  { plugins: [new HtmlWebpackPlugin({ title: "Webpack demo" })] }
-]);
+  { plugins: [new HtmlWebpackPlugin({ title: 'Webpack demo' })] },
+])
 
-const productionConfig = merge([]);
+const productionConfig = merge([])
 
 const developmentConfig = merge([
   parts.devServer({
     host: process.env.HOST,
-    port: process.env.PORT
-  })
-]);
+    port: process.env.PORT,
+  }),
+])
 
 module.exports = mode => {
-  if (mode === "production") {
-    return merge(commonConfig, productionConfig, { mode });
+  if (mode === 'production') {
+    return merge(commonConfig, productionConfig, { mode })
   }
 
-  return merge(commonConfig, developmentConfig, { mode });
-};
+  return merge(commonConfig, developmentConfig, { mode })
+}
