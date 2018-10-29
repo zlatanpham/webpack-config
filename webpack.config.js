@@ -1,11 +1,9 @@
 const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
-const glob = require("glob");
 const dotenv = require("dotenv");
 const tailwindcss = require("tailwindcss");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const glob = require("glob-all");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
 
@@ -39,7 +37,21 @@ module.exports = mode => {
         },
         {
           test: /\.scss$/,
-          use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"]
+          use: [
+            mode === "production"
+              ? {
+                  loader: MiniCssExtractPlugin.loader,
+                  options: {
+                    // you can specify a publicPath here
+                    // by default it use publicPath in webpackOptions.output
+                    publicPath: "../"
+                  }
+                }
+              : "style-loader",
+            "css-loader",
+            "postcss-loader",
+            "sass-loader"
+          ]
         }
       ]
     },
@@ -47,20 +59,16 @@ module.exports = mode => {
       new HtmlWebpackPlugin({
         title: "Tailwind config",
         template: "./src/index.html"
+      }),
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: "[name].css",
+        chunkFilename: "[id].css"
+      }),
+      new PurgecssPlugin({
+        paths: glob.sync(`${PATHS.src}/*`)
       })
-      new ExtractTextPlugin("styles.css"),
-    new PurgecssPlugin({
-      paths: glob.sync([
-        path.join(__dirname, "resources/views/**/*.blade.php"),
-        path.join(__dirname, "resources/assets/js/**/*.vue")
-      ]),
-      extractors: [
-        {
-          extractor: TailwindExtractor,
-          extensions: ["html", "js", "php", "vue"]
-        }
-      ]
-    })
     ],
     devServer: {
       contentBase: path.join(__dirname, "dist"),
