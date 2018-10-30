@@ -1,3 +1,5 @@
-import component from "./component";
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
-document.body.appendChild(component());
+ReactDOM.render(<App />, document.getElementById("root"));

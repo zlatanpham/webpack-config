@@ -1,25 +1,29 @@
-const merge = require('webpack-merge')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const parts = require('./webpack.parts')
-
-const commonConfig = merge([
-  { plugins: [new HtmlWebpackPlugin({ title: 'Webpack demo' })] },
-])
-
-const productionConfig = merge([])
-
-const developmentConfig = merge([
-  parts.devServer({
-    host: process.env.HOST,
-    port: process.env.PORT,
-  }),
-])
+const merge = require("webpack-merge");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = mode => {
-  if (mode === 'production') {
-    return merge(commonConfig, productionConfig, { mode })
-  }
-
-  return merge(commonConfig, developmentConfig, { mode })
-}
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_module/,
+          use: { loader: "babel-loader" }
+        }
+      ]
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        title: "Custom template",
+        // Load a custom template (lodash by default see the FAQ for details)
+        template: "./src/index.html"
+      })
+    ],
+    devServer: {
+      contentBase: path.join(__dirname, "dist"),
+      compress: true,
+      port: 9000
+    }
+  };
+};
