@@ -1,8 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Sidebar from "./components/Sidebar";
+import "./style.scss";
 
 const App = props => {
-  return <div>Hello</div>;
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  );
 };
 
 App.propTypes = {};
