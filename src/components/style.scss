@@ -3,6 +3,8 @@
   background: red;
   padding-left: 400px;
   box-sizing: border-box;
+  transition: background-color 0.4s ease;
+  fill: blur(0.5);
 }
 
 .hello {
