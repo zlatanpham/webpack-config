@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "webpack-dev-server --env development",
     "build": "webpack --env production",
-    "serve": "serve -s -l 8000 dist"
+    "serve": "serve -s -l 8000 dist",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -51,7 +53,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
+      "yarn lint",
       "git add"
     ]
   }
