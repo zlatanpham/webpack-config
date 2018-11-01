@@ -2,9 +2,15 @@ const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 module.exports = mode => {
   return {
+    output: {
+      filename: "bundle.js",
+      filename: "[name].[contenthash].js",
+      path: path.resolve(__dirname, "dist")
+    },
     module: {
       rules: [
         {
@@ -19,13 +25,14 @@ module.exports = mode => {
             mode !== "production"
               ? "style-loader"
               : MiniCssExtractPlugin.loader,
-            "css-loader",
+            "css-loader?modules&importLoaders=1&localIdentName=___[hash:base64:5]",
             "sass-loader"
           ]
         }
       ]
     },
     plugins: [
+      new CleanWebpackPlugin(["dist"], { verbose: true, dry: false }),
       new HtmlWebpackPlugin({
         title: "Custom template",
         // Load a custom template (lodash by default see the FAQ for details)
