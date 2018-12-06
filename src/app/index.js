@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 
 const target = document.querySelector('#root');
-console.log(document.documentElement.querySelector('#root'));
-ReactDOM.render(<div>Hello</div>, target);
+ReactDOM.render(
+  <App>
+    <div>123</div>
+  </App>,
+  target,
+);
